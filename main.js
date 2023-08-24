@@ -1,20 +1,15 @@
 window.onload = function() { //Função que executa quando a tela termina de carregar
-    let dados = JSON.parse(localStorage.usuarios); //Pega os informações salvas na storage
-    if(dados.length <= 0) { //Verifica se o tamanho é menor ou igual a zero
-        localStorage.usuarios = [{nome: 'admin', senha: 'admin'}]; //Cria a localstorage com um valor de array vazio
+    console.log("carregando");
+    if(localStorage.usuarios != '') {
+        let dados = JSON.parse(localStorage.usuarios); //Pega os informações salvas na storage
+
+        // const main = document.getElementById('main'); //pega o valor do element HTML de id 'main'
+        // dados.forEach(element => { //faz uma repetição do array 
+        //     main.innerHTML += '<h3>' + element.nome + '</h3><br>'; //injeta um HTML na tela para mostrar os usuarios cadastrados
+        // });
+    } else {
+        localStorage.usuarios = [];
     }
-    const main = document.getElementById('main'); //pega o valor do element HTML de id 'main'
-    dados.forEach(element => { //faz uma repetição do array 
-        main.innerHTML += "<p>Nome: " + element.nome + "</p>  "; //injeta um HTML na tela para mostrar os usuarios cadastrados
-    });
-    modal.style.display = "none";
-}
-
-var modal = document.getElementById("myModal");
-var span = document.getElementsByClassName("close")[0];
-
-span.onclick = function() {
-    modal.style.display = "none";
 }
 
 function submit (tela) {
@@ -35,7 +30,11 @@ function login(nome, senha) {
 }
 
 function cadastro(nome, senha, confirmSenha) {
-    let dados = JSON.parse(localStorage.usuarios); //Pega os informações salvas na storage
+    let dados = [];
+    if(localStorage.usuarios != '') {
+        dados = JSON.parse(localStorage.usuarios); //Pega os informações salvas na storage
+    }
+    console.log(localStorage.usuarios);
 
     if(senha == confirmSenha) { //Verifica se as 2 senhas inseridas são iguais
         dados.push({nome: nome, senha: senha}); //insere um novo obejeto no array com as informções inseridas
@@ -49,5 +48,6 @@ function cadastro(nome, senha, confirmSenha) {
 }
 
 function apagar() {
-    localStorage.removeItem(localStorage.usuarios);
+    console.log("apaga");
+    localStorage.clear();
 }
